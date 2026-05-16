@@ -8,8 +8,8 @@ const {
   
 } = require('../controller/Cstaff.js');
 
-router.post('/', createStaff);
-router.get('/', getAllStaff);
+router.post('/AddStaff', createStaff);
+router.get('/All', getAllStaff);
 router.get('/:staffId', getStaffById);
 
 

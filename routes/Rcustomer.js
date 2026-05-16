@@ -8,8 +8,8 @@ const {
   
 } = require('../controller/Ccustomer.js');
 
-router.post('/', createCustomer);
-router.get('/', getAllCustomers);
+router.post('/AddCustomer', createCustomer);
+router.get('/All', getAllCustomers);
 router.get('/:customerId', getCustomerById);
 
 module.exports = router;

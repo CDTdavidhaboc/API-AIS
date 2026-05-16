@@ -7,8 +7,8 @@ const {
     getAdminById,
 } = require('../controller/Cadmin.js');
 
-router.post('/', createAdmin);
-router.get('/', getAllAdmins);
+router.post('/AddAdmin', createAdmin);
+router.get('/All', getAllAdmins);
 router.get('/:adminId', getAdminById);
 
 

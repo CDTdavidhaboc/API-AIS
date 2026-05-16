@@ -8,8 +8,8 @@ const {
 
 } = require('../controller/Crider.js');
 
-router.post('/', createRider);
-router.get('/', getAllRiders);
+router.post('/AddRider', createRider);
+router.get('/All', getAllRiders);
 router.get('/:riderId', getRiderById);
 
 module.exports = router;

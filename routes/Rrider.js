@@ -6,7 +6,7 @@ const {
     getAllRiders,
     getRiderById,
 
-} = require('../controller/Crider');
+} = require('../controller/Crider.js');
 
 router.post('/', createRider);
 router.get('/', getAllRiders);

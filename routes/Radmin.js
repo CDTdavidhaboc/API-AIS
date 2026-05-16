@@ -5,7 +5,7 @@ const {
     createAdmin,
     getAllAdmins,
     getAdminById,
-} = require('../controller/Cadmin');
+} = require('../controller/Cadmin.js');
 
 router.post('/', createAdmin);
 router.get('/', getAllAdmins);

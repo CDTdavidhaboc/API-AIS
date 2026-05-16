@@ -6,7 +6,7 @@ const {
     getAllStaff,
     getStaffById,
   
-} = require('../controller/Cstaff');
+} = require('../controller/Cstaff.js');
 
 router.post('/', createStaff);
 router.get('/', getAllStaff);

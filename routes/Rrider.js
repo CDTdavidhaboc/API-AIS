@@ -1,15 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const {
-    createRider,
-    getAllRiders,
-    getRiderById,
+const {createRider, getAllRiders, getRiderById} = require('../controller/Crider.js');
 
-} = require('../controller/Crider.js');
-
-router.post('/AddRider', createRider);
-router.get('/All', getAllRiders);
-router.get('/:riderId', getRiderById);
+router.post('/', createRider);
+router.get('/', getAllRiders);
+router.get('/:riderId', getRiderById)
 
 module.exports = router;

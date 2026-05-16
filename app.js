@@ -5,55 +5,63 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-// Middleware
+// ===================== MIDDLEWARE =====================
 app.use(express.json());
 
+app.use((req, res, next) => {
+    console.log(req.path, req.method);
+    next();
+});
+
+// ===================== LOG ENV =====================
 console.log("APP STARTED");
 console.log("MONGO_URI =", process.env.MONGO_URI);
 console.log("PORT =", process.env.PORT);
 
-// Routes
+// ===================== ROUTES =====================
 const adminRoutes = require('./routes/Radmin.js');
 const customerRoutes = require('./routes/Rcustomer.js');
 const riderRoutes = require('./routes/Rrider.js');
 const staffRoutes = require('./routes/Rstaff.js');
 
-const requestMapper = '/api';
-
-// Test route
+// Base route (health check)
 app.get("/", (req, res) => {
     res.send("API is running");
 });
 
-// Routes
-app.use('/api/users', require('./routes/RUsers.js'));
+// Main API router
+const requestMapper = '/api';
 
-// 404 handler
+app.use(requestMapper + '/admins', adminRoutes);
+app.use(requestMapper + '/customers', customerRoutes);
+app.use(requestMapper + '/riders', riderRoutes);
+app.use(requestMapper + '/staff', staffRoutes);
+
+
+// ===================== 404 HANDLER =====================
 app.use((req, res) => {
     res.status(404).json({ error: 'No such endpoint exists' });
 });
 
-// 🚨 CRITICAL FIX FOR RENDER
-const PORT = process.env.PORT;
+// ===================== PORT SAFETY =====================
+const PORT = process.env.PORT || 9000;
 
-// Safety check (prevents silent crash)
-if (!PORT) {
-    console.error("❌ PORT is missing in environment variables");
+if (!process.env.MONGO_URI) {
+    console.error("❌ MONGO_URI is missing");
     process.exit(1);
 }
 
-// MongoDB connection
+// ===================== DATABASE CONNECTION =====================
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         console.log("MongoDB connected");
 
-        // 🚨 IMPORTANT: bind to 0.0.0.0 for Render
         app.listen(PORT, '0.0.0.0', () => {
             console.log("Server running on port", PORT);
         });
     })
-    .catch(err => {
+    .catch((error) => {
         console.error("MONGO ERROR:");
-        console.error(err);
+        console.error(error);
         process.exit(1);
     });

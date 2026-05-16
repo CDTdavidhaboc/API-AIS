@@ -1,41 +1,45 @@
 const express = require('express');
 const router = express.Router();
 
-// import all controllers
+// ===================== MODELS (FOR AGGREGATION) =====================
+const Admin = require('../model/Madmin');
+const Customer = require('../model/Mcustomer');
+const Rider = require('../model/Mrider');
+const Staff = require('../model/Mstaff');
+
+
+// ===================== CONTROLLERS (FOR CRUD) =====================
 const adminController = require('../controller/Cadmin.js');
 const customerController = require('../controller/Ccustomer.js');
 const riderController = require('../controller/Crider.js');
 const staffController = require('../controller/Cstaff.js');
 
 
-// ===================== BASE ROUTE =====================
-// FIX: this makes /api/users work
-router.get('/', (req, res) => {
-    res.json({
-        message: "Users API is working",
-        availableRoutes: {
-            admin: {
-                create: "POST /admin",
-                getAll: "GET /admin",
-                getById: "GET /admin/:adminId"
-            },
-            customer: {
-                create: "POST /customer",
-                getAll: "GET /customer",
-                getById: "GET /customer/:customerId"
-            },
-            rider: {
-                create: "POST /rider",
-                getAll: "GET /rider",
-                getById: "GET /rider/:riderId"
-            },
-            staff: {
-                create: "POST /staff",
-                getAll: "GET /staff",
-                getById: "GET /staff/:staffId"
+// ===================== BASE ROUTE (GET ALL USERS) =====================
+// THIS FIXES: /api/users returning ALL data
+router.get('/', async (req, res) => {
+    try {
+        const admins = await Admin.find();
+        const customers = await Customer.find();
+        const riders = await Rider.find();
+        const staff = await Staff.find();
+
+        res.json({
+            message: "All users fetched successfully",
+            data: {
+                admins,
+                customers,
+                riders,
+                staff
             }
-        }
-    });
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            error: "Failed to fetch users"
+        });
+    }
 });
 
 
@@ -63,9 +67,11 @@ router.get('/staff', staffController.getAllStaff);
 router.get('/staff/:staffId', staffController.getStaffById);
 
 
-// 404 inside router (optional but good practice)
+// ===================== 404 HANDLER =====================
 router.use((req, res) => {
-    res.status(404).json({ error: "Route not found inside users API" });
+    res.status(404).json({
+        error: "Route not found inside users API"
+    });
 });
 
 module.exports = router;

@@ -3,8 +3,8 @@ const router = express.Router();
 
 const {createAdmin, getAllAdmins, getAdminById} = require('../controller/Cadmin.js');
 
-router.post('/', createAdmin);
-router.get('/', getAllAdmins);
-router.get('/:adminId', getAdminById)
+router.post('/createAdmin', createAdmin);
+router.get('/getAllAdmins', getAllAdmins);
+router.get('/getAdminById/:adminId', getAdminById);
 
 module.exports = router;

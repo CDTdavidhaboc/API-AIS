@@ -10,22 +10,22 @@ app.use(express.json());
 
 console.log("APP STARTED");
 console.log("MONGO_URI =", process.env.MONGO_URI);
+console.log("PORT =", process.env.PORT);
 
-// Routes (IMPORTS)
+// Routes
 const adminRoutes = require('./routes/Radmin.js');
 const customerRoutes = require('./routes/Rcustomer.js');
 const riderRoutes = require('./routes/Rrider.js');
 const staffRoutes = require('./routes/Rstaff.js');
 
-// Base API route
 const requestMapper = '/api';
 
-// TEST ROUTE (always keep this)
+// Test route
 app.get("/", (req, res) => {
     res.send("API is running");
 });
 
-// ROUTES
+// Routes
 app.use(requestMapper + '/customers', customerRoutes);
 app.use(requestMapper + '/admins', adminRoutes);
 app.use(requestMapper + '/riders', riderRoutes);
@@ -36,16 +36,23 @@ app.use((req, res) => {
     res.status(404).json({ error: 'No such endpoint exists' });
 });
 
-// PORT
-const PORT = process.env.PORT || 10000;
+// 🚨 CRITICAL FIX FOR RENDER
+const PORT = process.env.PORT;
 
-// MONGODB CONNECTION
+// Safety check (prevents silent crash)
+if (!PORT) {
+    console.error("❌ PORT is missing in environment variables");
+    process.exit(1);
+}
+
+// MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         console.log("MongoDB connected");
 
-        app.listen(PORT, () => {
-            console.log("Server running on", PORT);
+        // 🚨 IMPORTANT: bind to 0.0.0.0 for Render
+        app.listen(PORT, '0.0.0.0', () => {
+            console.log("Server running on port", PORT);
         });
     })
     .catch(err => {

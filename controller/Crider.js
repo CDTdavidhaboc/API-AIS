@@ -1,4 +1,4 @@
-const Rider = require('../model/MRider');
+const Rider = require('../model/MRider.js');
 
 // Create rider
 const createRider = async (req, res) => {

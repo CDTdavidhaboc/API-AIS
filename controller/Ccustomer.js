@@ -1,4 +1,4 @@
-const Customer = require('../model/Mcustomer');
+const Customer = require('../model/Mcustomer.js');
 
 // Create customer
 const createCustomer = async (req, res) => {

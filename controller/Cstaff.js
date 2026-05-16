@@ -1,4 +1,4 @@
-const Staff = require('../model/Mstaff');
+const Staff = require('../model/Mstaff.js');
 
 // Create staff
 const createStaff = async (req, res) => {

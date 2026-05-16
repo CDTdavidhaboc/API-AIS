@@ -3,7 +3,7 @@ const router = express.Router();
 
 // import all controllers
 const adminController = require('../controller/Cadmin.js');
-const customerController = require('../controller/Ccustomer,js');
+const customerController = require('../controller/Ccustomer.js');
 const riderController = require('../controller/Crider.js');
 const staffController = require('../controller/Cstaff.js');
 

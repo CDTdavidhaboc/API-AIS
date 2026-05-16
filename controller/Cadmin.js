@@ -5,13 +5,16 @@ const createAdmin = async (req, res) => {
     const {
         FirstName,
         LastName,
-
+        phoneNumber,
+        address
     } = req.body;
 
     try {
         const admin = await Admin.create({
             FirstName,
-            LastName
+            LastName,
+            phoneNumber,
+            address
         });
 
         res.status(201).json(admin);

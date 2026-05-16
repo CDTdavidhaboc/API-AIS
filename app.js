@@ -26,10 +26,7 @@ app.get("/", (req, res) => {
 });
 
 // Routes
-app.use(requestMapper + '/customers', customerRoutes);
-app.use(requestMapper + '/admins', adminRoutes);
-app.use(requestMapper + '/riders', riderRoutes);
-app.use(requestMapper + '/staff', staffRoutes);
+app.use('/api/users', require('./routes/Rusers'));
 
 // 404 handler
 app.use((req, res) => {

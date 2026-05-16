@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 // Main API router
 const requestMapper = '/api';
 
-app.use('/api/users', require('./routes/RUsers'));
+app.use('/api/users', require('./routes/Rusers.js'));
 
 // ===================== 404 HANDLER =====================
 app.use((req, res) => {

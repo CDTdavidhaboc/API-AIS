@@ -3,16 +3,16 @@ const Admin = require('../model/Madmin.js');
 // Create admin
 const createAdmin = async (req, res) => {
     const {
-        FirstName,
-        LastName,
+        firstName,
+        lastName,
         phoneNumber,
         address
     } = req.body;
 
     try {
         const admin = await Admin.create({
-            FirstName,
-            LastName,
+            firstName,
+            lastName,
             phoneNumber,
             address
         });

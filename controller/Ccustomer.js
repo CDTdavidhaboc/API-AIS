@@ -3,17 +3,17 @@ const Customer = require('../model/Mcustomer.js');
 // Create customer
 const createCustomer = async (req, res) => {
     const {
-        FirstName,
-        LastName,
-        contactNumber,
+        firstName,
+        lastName,
+        phoneNumber,
         address
     } = req.body;
 
     try {
         const customer = await Customer.create({
-            FirstName,
-            LastName,
-            contactNumber,
+            firstName,
+            lastName,
+            phoneNumber,
             address
         });
 

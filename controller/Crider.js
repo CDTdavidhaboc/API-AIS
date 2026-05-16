@@ -3,17 +3,17 @@ const Rider = require('../model/Mrider.js');
 // Create rider
 const createRider = async (req, res) => {
     const {
-        FirstName,
-        LastName,
-        contactNumber,
+        firstName,
+        lastName,
+        phoneNumber,
         riderStatus
     } = req.body;
 
     try {
         const rider = await Rider.create({
-            FirstName,
-            LastName,
-            contactNumber,
+            firstName,
+            lastName,
+            phoneNumber,
             riderStatus
         });
 

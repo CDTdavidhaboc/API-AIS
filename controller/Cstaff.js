@@ -3,17 +3,17 @@ const Staff = require('../model/Mstaff.js');
 // Create staff
 const createStaff = async (req, res) => {
     const {
-        FirstName,
-        LastName,
-        contactNumber,
+        firstName,
+        lastName,
+        phoneNumber,
         staffStatus
     } = req.body;
 
     try {
         const staff = await Staff.create({
-            FirstName,
-            LastName,
-            contactNumber,
+            firstName,
+            lastName,
+            phoneNumber,
             staffStatus
         });
 

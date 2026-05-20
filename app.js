@@ -29,7 +29,7 @@ mongoose.connect(process.env.MONGO_URI)
     })
 
 const requestMapper = '/api'
-app.use(requestMapper+'/admins', adminRoute);
+app.use(requestMapper+'/users', adminRoute);
 app.use(requestMapper+'/customers', customerRoute);
 app.use(requestMapper+'/riders', riderRoute);
 app.use(requestMapper+'/staff', staffRoute);
